@@ -28,7 +28,7 @@ function App() {
           <Route path="/signup" element={isAuthenticated ? <Navigate to="/"/> : <Signup />} />
           <Route path="/mypage" element={<PrivateRoute authenticated={access}><MyPage /></PrivateRoute>} />
           <Route path="/search" element={<PrivateRoute authenticated={access}><SearchPage /></PrivateRoute>} />
-          <Route path="/shop" element={<PrivateRoute authenticated={access}><ShopPage /></PrivateRoute>} />
+          <Route path="/shop/:id" element={<PrivateRoute authenticated={access}><ShopPage /></PrivateRoute>} />
         </Routes>
       </Router>
       </AuthProvider>
