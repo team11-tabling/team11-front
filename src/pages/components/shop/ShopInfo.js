@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 function ShopInfo(props) {
   const [shop, setShop] = useState(null);
   const { shopId } = props;
+  const token = localStorage.getItem('Authorization');
 
   useEffect(() => {
     const requestOptions = {
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MiIsImV4cCI6MTcxMzM1NjIxMSwiaWF0IjoxNzEzMzUyNjExfQ.ypxbBIg5jPIvsoEtHL6ni4wNhnvjrsEWuKaFGPPbSJM'
+        Authorization: `${token}`
       }
     };
 

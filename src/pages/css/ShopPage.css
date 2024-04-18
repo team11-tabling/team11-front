@@ -40,3 +40,11 @@
   border: 1px solid;
   background-color: #fffbe6; /* 연한 노란색 배경 */
 }
+
+.booking-message {
+  background-color: #f8e68e;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
