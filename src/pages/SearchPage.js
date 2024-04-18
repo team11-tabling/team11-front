@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import './css/SearchPage.css';
+import { useNavigate  } from 'react-router-dom';
 
 function SearchPage() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzEyMDM5NjcyfQ.yOcE3LoI-bcuAy3I9zepf0QUqqUuXus-lh7808J6MOs'; // 이는 예시입니다. 실제 토큰을 여기에 설정하세요.
-  const encodedToken = encodeURIComponent(token);
+  const token = localStorage.getItem('Authorization');
+  const navigate = useNavigate();
   const handleSearch = (e) => {
     e.preventDefault();
+
 
     fetch(`http://localhost:8080/api/shops?search=${query}`,
         {
           method: 'GET', // 또는 'POST', 'PUT', 'DELETE' 등
           credentials: 'include', // 쿠키 정보를 함께 보냄
           headers: {
-            'Authorization': `Bearer ${encodedToken}`, // 헤더에 Authorization 추가
-            // 필요한 경우 추가 헤더를 여기에 설정
+            'Authorization': token, // 헤더에 Authorization 추가
           }
         })
     .then(response => response.json())
@@ -24,6 +25,28 @@ function SearchPage() {
       console.log('Fetching data with query:', data.data.documents);
     })
     .catch(error => console.error('Error:', error));
+  };
+
+  const registerShop = (shopData) => {
+    fetch('http://localhost:8080/api/shops', {
+      method: 'POST',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(shopData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Shop registered with ID:', data);
+      // 상점 등록 후 상세 페이지로 라우팅
+      navigate(`/shop/${data}`);
+    })
+    .catch(error => console.error('Error registering shop:', error));
+  };
+
+  const handleItemClick = (shop) => {
+    registerShop(shop);
   };
 
 
@@ -42,7 +65,7 @@ function SearchPage() {
         </form>
         <div className="results-container">
           {results?.map((result, index) => (
-              <div key={index} className="result-item">
+              <div key={index} className="result-item" onClick ={()=> handleItemClick(result)}>
                 <h3>{result.place_name}</h3>
                 <p>{result.address_name}</p>
                 <p>{result.phone}</p>
