@@ -2,12 +2,13 @@ import React, {useEffect, useState} from "react";
 
 function MyReviews() {
 const [reviews, setReviews] = useState([]);
+const token = localStorage.getItem('Authorization'); 
 
 useEffect(() => {
   const requestOptions = {
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MiIsImV4cCI6MTcxMzM1NjE2MiwiaWF0IjoxNzEzMzUyNTYyfQ.3c18GKFX7NbhmqXhJOuOJ7u_4f6i6wC4QWr-HEJ_7CQ'
+        Authorization: `${token}`
       }
     };
 

@@ -1,46 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
 function Bookings(props) {
-  const [reservedDatetime, setReservedDatetime] = useState(new Date().toISOString()); // 오늘 날짜와 시간을 ISO 형식으로 설정
+  const [reservedDatetime, setReservedDatetime] = useState(new Date().toISOString());
   const [reservedParty, setReservedParty] = useState('');
-  const {shopId} = props;
+  const [bookingMessage, setBookingMessage] = useState(''); // 이벤트 메시지를 저장할 상태 추가
+  const [bookingStatus, setBookingStatus] = useState('reserve'); // 예약 상태를 저장할 상태 추가
+  const { shopId } = props;
+  const token = localStorage.getItem('Authorization');
+  const [bookingId, setBookingId] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // 입력 받은 값을 가지고 요청 보내기
-    fetch('http://localhost:8080/api/bookings', {
-      method: 'POST',
+    const apiEndpoint = bookingStatus === 'reserve' ? 'http://localhost:8080/api/bookings' : `http://localhost:8080/api/bookings/${bookingId}`; // 예약 상태에 따라 API 주소 변경
+    const method = bookingStatus === 'reserve' ? 'POST' : 'DELETE'; // 예약 상태에 따라 사용할 메소드 변경
+    fetch(apiEndpoint, {
+      method: method,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MiIsImV4cCI6MTcxMzM1NjIxMSwiaWF0IjoxNzEzMzUyNjExfQ.ypxbBIg5jPIvsoEtHL6ni4wNhnvjrsEWuKaFGPPbSJM'
+        Authorization: `${token}`
       },
-      body: JSON.stringify({ reservedParty, reservedDatetime, shopId }), // 입력 받은 값들을 요청 본문에 포함
+      body: JSON.stringify({ reservedParty, reservedDatetime, shopId }),
     })
-    .then(response => response.json()) // JSON 데이터 추출
+    .then(response => {
+      if (response.ok) {
+        // 예약 성공 시 버튼 상태와 메시지 업데이트
+        setBookingStatus(bookingStatus === 'reserve' ? 'cancel' : 'reserve'); // 예약 상태를 토글
+        return response.json();
+      } else {
+        throw new Error('Failed to make a booking');
+      }
+    })
     .then(data => {
-      console.log('Success:', data);
+      setBookingId(data.data.bookingId);
+      if(bookingStatus === 'reserve') {
+        handleSSE(token, data.data.state);
+      }
     })
     .catch(error => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
   };
 
+  const handleSSE = (token, bookingType) => {
+    const eventSource = new EventSourcePolyfill(`http://localhost:8080/api/alarm/shop?bookingType=` + bookingType, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    eventSource.onmessage = function(event) {
+      const eventData = event.data;
+      setBookingMessage(eventData);
+    };
+  
+    eventSource.onerror = (error) => {
+      console.error("SSE Error:", error);
+      eventSource.close();
+    };
+  };
+
   return (
-      <div className="booking">
+    <div className="booking">
       <form onSubmit={handleSubmit}>
         <label>
           예약 인원 :
           <input
-              className="party"
-              type="text"
-              value={reservedParty}
-              onChange={(e) => setReservedParty(e.target.value)}
+            className="party"
+            type="text"
+            value={reservedParty}
+            onChange={(e) => setReservedParty(e.target.value)}
           />
         </label>
-        <button className="btn" type="submit">예약하기</button>
+        <button className="btn" type="submit" disabled={!reservedParty}>
+          {bookingStatus === 'reserve' ? '줄서기' : '취소하기'}
+        </button>
       </form>
-      </div>
+      {/* 예약 메시지를 표시하는 부분 추가 */}
+      {bookingMessage && (
+        <div className="booking-message">
+          <p>{bookingMessage}</p>
+        </div>
+      )}
+    </div>
   );
 }
 

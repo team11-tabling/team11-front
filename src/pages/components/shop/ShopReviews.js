@@ -3,12 +3,13 @@ import React, {useEffect, useState} from "react";
 function MyReviews(props) {
   const [reviews, setReviews] = useState([]);
   const {shopId} = props;
+  const token = localStorage.getItem('Authorization');
 
   useEffect(() => {
     const requestOptions = {
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MiIsImV4cCI6MTcxMzM1NjIxMSwiaWF0IjoxNzEzMzUyNjExfQ.ypxbBIg5jPIvsoEtHL6ni4wNhnvjrsEWuKaFGPPbSJM'
+        Authorization : `${token}`
       }
     };
 
@@ -25,7 +26,6 @@ function MyReviews(props) {
 
   return (
       <div className= "reviews">
-        <h1>{shopId}</h1>
         <h1>Reviews</h1>
         <table>
           <thead>
