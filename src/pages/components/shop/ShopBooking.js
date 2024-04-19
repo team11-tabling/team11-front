@@ -10,6 +10,40 @@ function Bookings(props) {
   const token = localStorage.getItem('Authorization');
   const [bookingId, setBookingId] = useState('');
 
+  // 컴포넌트가 처음 렌더링될 때 API를 조회하여 초기 데이터 설정
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/bookings/shop/${shopId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: token
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          // 데이터가 null이 아닌 경우에만 해당 상태를 설정
+          setReservedParty(data.data.reservedParty || reservedParty);
+          setReservedDatetime(data.data.reservedDatetime || reservedDatetime);
+          setBookingStatus(data.data.state || bookingStatus);
+          setBookingId(data.data.bookingId || bookingId);
+
+          console.log(bookingStatus)
+          console.log(data.data.state)
+          if(data.data.state === 'WAITING') { 
+            handleSSE(token, data.data.state);
+          }
+        } else {
+          throw new Error('Failed to fetch initial data');
+        }
+      } catch (error) {
+        console.error('Error fetching initial data:', error);
+      }
+    };
+
+    fetchInitialData();
+  }, [shopId, token]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -25,8 +59,6 @@ function Bookings(props) {
     })
     .then(response => {
       if (response.ok) {
-        // 예약 성공 시 버튼 상태와 메시지 업데이트
-        setBookingStatus(bookingStatus === 'reserve' ? 'cancel' : 'reserve'); // 예약 상태를 토글
         return response.json();
       } else {
         throw new Error('Failed to make a booking');
@@ -34,6 +66,15 @@ function Bookings(props) {
     })
     .then(data => {
       setBookingId(data.data.bookingId);
+      // 예약 성공 시 버튼 상태와 메시지 업데이트
+      
+      console.log(data.data.state)
+      if(data.data.state === 'DONE') {
+        setBookingStatus('reserve');
+      }else {
+        setBookingStatus(bookingStatus === 'reserve' ? 'cancel' : 'reserve'); // 예약 상태를 토글
+      }
+
       if(bookingStatus === 'reserve') {
         handleSSE(token, data.data.state);
       }
@@ -48,6 +89,7 @@ function Bookings(props) {
       headers: {
         Authorization: token,
       },
+      heartbeatTimeout: 86400000,
     });
 
     eventSource.onmessage = function(event) {
