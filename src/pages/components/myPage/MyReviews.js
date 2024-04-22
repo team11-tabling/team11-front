@@ -12,7 +12,7 @@ useEffect(() => {
       }
     };
 
-  fetch('https://load.p-hako.com/api/reviews', requestOptions)
+  fetch('http://localhost:8080/api/reviews', requestOptions)
     .then(response => response.json())
     .then(data => {
       const reviewsData = data.data || [];

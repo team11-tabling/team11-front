@@ -77,7 +77,7 @@ function Signup() {
 
     // API 호출
     try {
-      const response = await fetch('https://load.p-hako.com/api/users/signup', requestOptions);
+      const response = await fetch('http://localhost:8080/api/users/signup', requestOptions);
       const responseData =await response.json();
       console.log(responseData);
 

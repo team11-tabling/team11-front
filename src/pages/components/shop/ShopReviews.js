@@ -13,7 +13,7 @@ function MyReviews(props) {
       }
     };
 
-    fetch(`https://load.p-hako.com/api/reviews/shop/${shopId}`, requestOptions)
+    fetch(`http://localhost:8080/api/reviews/shop/${shopId}`, requestOptions)
     .then(response => response.json())
     .then(data => {
       const reviewsData = data.data || [];
