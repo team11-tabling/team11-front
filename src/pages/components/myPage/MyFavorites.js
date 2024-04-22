@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 
 function MyFavorites() {
   const [favorites, setFavorites] = useState([]);
-  const token = localStorage.getItem('Authorization'); 
 
   useEffect(() => {
+    const token = localStorage.getItem('Authorization');
     const requestOptions = {
       method: 'GET',
       headers: {

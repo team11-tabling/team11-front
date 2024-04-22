@@ -34,14 +34,18 @@ function Bookings(props) {
     })
     .then(data => {
       setBookingId(data.data.bookingId);
-      if(bookingStatus === 'reserve') {
-        handleSSE(token, data.data.state);
-      }
     })
     .catch(error => {
       console.error("Error:", error);
     });
   };
+
+  useEffect(() => {
+    // bookingStatus가 변경될 때마다 SSE를 구독하도록 함
+    if (bookingStatus === 'reserve') {
+      handleSSE(token, bookingStatus);
+    }
+  }, [bookingStatus, token]);
 
   const handleSSE = (token, bookingType) => {
     const eventSource = new EventSourcePolyfill(`http://localhost:8080/api/alarm/shop?bookingType=` + bookingType, {
@@ -54,7 +58,7 @@ function Bookings(props) {
       const eventData = event.data;
       setBookingMessage(eventData);
     };
-  
+
     eventSource.onerror = (error) => {
       console.error("SSE Error:", error);
       eventSource.close();
@@ -62,28 +66,28 @@ function Bookings(props) {
   };
 
   return (
-    <div className="booking">
-      <form onSubmit={handleSubmit}>
-        <label>
-          예약 인원 :
-          <input
-            className="party"
-            type="text"
-            value={reservedParty}
-            onChange={(e) => setReservedParty(e.target.value)}
-          />
-        </label>
-        <button className="btn" type="submit" disabled={!reservedParty}>
-          {bookingStatus === 'reserve' ? '줄서기' : '취소하기'}
-        </button>
-      </form>
-      {/* 예약 메시지를 표시하는 부분 추가 */}
-      {bookingMessage && (
-        <div className="booking-message">
-          <p>{bookingMessage}</p>
-        </div>
-      )}
-    </div>
+      <div className="booking">
+        <form onSubmit={handleSubmit}>
+          <label>
+            예약 인원 :
+            <input
+                className="party"
+                type="text"
+                value={reservedParty}
+                onChange={(e) => setReservedParty(e.target.value)}
+            />
+          </label>
+          <button className="btn" type="submit" disabled={!reservedParty}>
+            {bookingStatus === 'reserve' ? '줄서기' : '취소하기'}
+          </button>
+        </form>
+        {/* 예약 메시지를 표시하는 부분 추가 */}
+        {bookingMessage && (
+            <div className="booking-message">
+              <p>{bookingMessage}</p>
+            </div>
+        )}
+      </div>
   );
 }
 

@@ -16,13 +16,13 @@ function ShopInfo(props) {
     fetch(`http://localhost:8080/api/shops/${shopId}`, requestOptions)
     .then(response => response.json())
     .then(data => {
-      const shop = data.data || [];
-      setShop(shop);
+      const shopData = data.data || null; // 데이터가 없을 경우를 대비하여 null로 설정
+      setShop(shopData);
     })
     .catch(error => {
       console.error('Error fetching data: ', error);
     });
-  }, []);
+  }, [shopId, token]); // shopId와 token을 의존성 배열에 추가하여, 해당 값이 변경될 때마다 useEffect가 실행되도록 함
 
 
   if (!shop) {
