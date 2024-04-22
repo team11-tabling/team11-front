@@ -27,7 +27,7 @@ jobs:
     - run: npm run build --if-present
 
     - uses: jakejarvis/s3-sync-action@master
-     with:
+      with:
         args: --acl public-read --delete
       env:
         AWS_S3_BUCKET: ${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
