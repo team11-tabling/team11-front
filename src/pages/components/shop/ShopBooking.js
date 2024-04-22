@@ -14,7 +14,7 @@ function Bookings(props) {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const response = await fetch(`http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:8080/api/bookings/shop/${shopId}`, {
+        const response = await fetch(`http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:80/api/bookings/shop/${shopId}`, {
           method: 'GET',
           headers: {
             Authorization: token
@@ -47,7 +47,7 @@ function Bookings(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const apiEndpoint = bookingStatus === 'reserve' ? 'http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:8080/api/bookings' : `http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:8080/api/bookings/${bookingId}`; // 예약 상태에 따라 API 주소 변경
+    const apiEndpoint = bookingStatus === 'reserve' ? 'http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:80/api/bookings' : `http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:80/api/bookings/${bookingId}`; // 예약 상태에 따라 API 주소 변경
     const method = bookingStatus === 'reserve' ? 'POST' : 'DELETE'; // 예약 상태에 따라 사용할 메소드 변경
     try {
       const response = await fetch(apiEndpoint, {
@@ -80,7 +80,7 @@ function Bookings(props) {
   };
 
   const handleSSE = (token, bookingType) => {
-    const eventSource = new EventSourcePolyfill(`http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:8080/api/alarm/shop?bookingType=${bookingType}`, {
+    const eventSource = new EventSourcePolyfill(`http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:80/api/alarm/shop?bookingType=${bookingType}`, {
       headers: {
         Authorization: token,
       },
