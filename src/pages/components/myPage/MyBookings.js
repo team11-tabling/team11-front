@@ -14,7 +14,7 @@ function MyBookings() {
       }
     };
 
-    fetch('http://localhost:8080/api/bookings/my', requestOptions)
+    fetch('http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:8080/api/bookings/my', requestOptions)
       .then(response => response.json())
       .then(data => {
         // 받아온 데이터에서 'data' 키에 해당하는 배열을 추출
