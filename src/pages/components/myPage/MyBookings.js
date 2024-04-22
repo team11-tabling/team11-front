@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function MyBookings() {
-
+  const [setBookings] = useState([]); 
   const [lastTenBookings, setLastTenBookings] = useState([]); // 마지막 10개 예약 상태
 
 
