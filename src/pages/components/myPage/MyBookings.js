@@ -4,9 +4,9 @@ function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [lastTenBookings, setLastTenBookings] = useState([]); // 마지막 10개 예약 상태
 
-  const token = localStorage.getItem('Authorization'); 
 
   useEffect(() => {
+    const token = localStorage.getItem('Authorization');
     const requestOptions = {
       method: 'GET',
       headers: {

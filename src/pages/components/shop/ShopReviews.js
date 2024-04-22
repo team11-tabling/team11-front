@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 function MyReviews(props) {
   const [reviews, setReviews] = useState([]);
-  const {shopId} = props;
+  const { shopId } = props;
   const token = localStorage.getItem('Authorization');
 
   useEffect(() => {
     const requestOptions = {
       method: 'GET',
       headers: {
-        Authorization : `${token}`
+        Authorization: `${token}`
       }
     };
 
-    fetch(`http://localhost:8080/api/reviews/shop/${shopId}` , requestOptions)
+    fetch(`http://localhost:8080/api/reviews/shop/${shopId}`, requestOptions)
     .then(response => response.json())
     .then(data => {
       const reviewsData = data.data || [];
@@ -22,10 +22,10 @@ function MyReviews(props) {
     .catch(error => {
       console.error('Error fetching data: ', error);
     });
-  }, []);
+  }, [shopId, token]); // shopId와 token을 의존성 배열에 추가하여, 해당 값이 변경될 때마다 useEffect가 실행되도록 함
 
   return (
-      <div className= "reviews">
+      <div className="reviews">
         <h1>Reviews</h1>
         <table>
           <thead>
@@ -54,12 +54,3 @@ function MyReviews(props) {
 }
 
 export default MyReviews;
-
-
-// list를 조회한다
-// 가게를 클릭한다
-
-// 리스트를 띄우고
-// 저장을하고 < 저장을하면 return값이 있을텐데 id값을 리턴받아서
-// /shop/1
-// GET shops/1
