@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function MyBookings() {
-  const [setBookings] = useState([]); 
+  const [bookings, setBookings] = useState([]);
   const [lastTenBookings, setLastTenBookings] = useState([]); // 마지막 10개 예약 상태
 
 
@@ -19,7 +19,7 @@ function MyBookings() {
       .then(data => {
         // 받아온 데이터에서 'data' 키에 해당하는 배열을 추출
         const bookingsData = data.data || [];
-        setBookings(bookingsData); // 상태 업데이트
+        
 
         // 마지막 10개 예약을 설정
         const lastTen = bookingsData.slice(Math.max(bookingsData.length - 10, 0));
