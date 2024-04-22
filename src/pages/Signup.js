@@ -77,7 +77,7 @@ function Signup() {
 
     // API 호출
     try {
-      const response = await fetch('https://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:80/api/users/signup', requestOptions);
+      const response = await fetch('http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:80/api/users/signup', requestOptions);
       const responseData =await response.json();
       console.log(responseData);
 
