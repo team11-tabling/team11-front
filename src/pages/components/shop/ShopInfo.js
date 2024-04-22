@@ -13,7 +13,7 @@ function ShopInfo(props) {
       }
     };
 
-    fetch(`http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:80/api/shops/${shopId}`, requestOptions)
+    fetch(`https://load.p-hako.com/api/shops/${shopId}`, requestOptions)
     .then(response => response.json())
     .then(data => {
       const shopData = data.data || null; // 데이터가 없을 경우를 대비하여 null로 설정

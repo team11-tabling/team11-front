@@ -12,7 +12,7 @@ useEffect(() => {
       }
     };
 
-  fetch('http://tabling-load-balancer-1692678199.ap-northeast-2.elb.amazonaws.com:80/api/reviews', requestOptions)
+  fetch('https://load.p-hako.com/api/reviews', requestOptions)
     .then(response => response.json())
     .then(data => {
       const reviewsData = data.data || [];
