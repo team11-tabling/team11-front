@@ -13,36 +13,36 @@ function Bookings(props) {
   // 컴포넌트가 처음 렌더링될 때 API를 조회하여 초기 데이터 설정
   useEffect(() => {
     const fetchInitialData = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/api/bookings/shop/${shopId}`, {
-          method: 'GET',
-          headers: {
-            Authorization: token
-          }
-        });
-        if (response.ok) {
-          const data = await response.json();
-          // 데이터가 null이 아닌 경우에만 해당 상태를 설정
-          if (data.data) {
-            setReservedParty(data.data.reservedParty);
-            setReservedDatetime(data.data.reservedDatetime);
-            setBookingStatus(data.data.state);
-            setBookingId(data.data.bookingId);
+        try {
+            const response = await fetch(`http://localhost:8080/api/bookings/shop/${shopId}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: token
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                // 데이터가 null이 아닌 경우에만 해당 상태를 설정
+                if (data.data.bookingId != null) {
+                    setReservedParty(data.data.reservedParty);
+                    setReservedDatetime(data.data.reservedDatetime);
+                    setBookingStatus(data.data.state);
+                    setBookingId(data.data.bookingId);
 
-            if (data.data.state === 'WAITING') {
-              handleSSE(token, data.data.state);
+                    if (data.data.state === 'WAITING') {
+                        handleSSE(token, data.data.state);
+                    }
+                }
+            } else {
+                throw new Error('Failed to fetch initial data');
             }
-          }
-        } else {
-          throw new Error('Failed to fetch initial data');
+        } catch (error) {
+            console.error('Error fetching initial data:', error);
         }
-      } catch (error) {
-        console.error('Error fetching initial data:', error);
-      }
     };
 
     fetchInitialData();
-  }, [shopId, token]);
+}, [shopId, token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
