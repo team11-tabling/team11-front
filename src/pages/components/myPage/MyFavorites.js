@@ -12,7 +12,7 @@ function MyFavorites() {
       }
     };
 
-    fetch('http://localhost:8080/api/wishs', requestOptions)
+    fetch('https://load.p-hako.com/api/wishs', requestOptions)
     .then(response => response.json())
     .then(data => {
       // 받아온 데이터에서 'data' 키에 해당하는 배열을 추출
