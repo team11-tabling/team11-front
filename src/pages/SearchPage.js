@@ -11,7 +11,7 @@ function SearchPage() {
     e.preventDefault();
 
 
-    fetch(`http://localhost:8080/api/shops?search=${query}`,
+    fetch(`https://load.p-hako.com/api/shops?search=${query}`,
         {
           method: 'GET', // 또는 'POST', 'PUT', 'DELETE' 등
           credentials: 'include', // 쿠키 정보를 함께 보냄
@@ -28,7 +28,7 @@ function SearchPage() {
   };
 
   const registerShop = (shopData) => {
-    fetch('http://localhost:8080/api/shops', {
+    fetch('https://load.p-hako.com/api/shops', {
       method: 'POST',
       headers: {
         Authorization: token,
