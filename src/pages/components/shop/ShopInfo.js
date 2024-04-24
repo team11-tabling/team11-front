@@ -33,11 +33,11 @@ function ShopInfo(props) {
       <div className="shop-info">
         <h1>{shop.placeName}</h1>
         <br/>
-        <p>City: {shop.city} - {shop.address}</p>
-        <p>Tell: {shop.phone}</p>
-        <p>Open Time: {shop.openTime.toString().substring(0, 5)}</p>
-        <p>Close Time: {shop.closeTime.toString().substring(0, 5)}</p>
-        <p>Waiting: {shop.waitingNum}</p>
+        <p>주소: {shop.city} - {shop.address}</p>
+        <p>전화번호: {shop.phone}</p>
+        <p>오픈 시간: {shop.openTime.toString().substring(0, 5)}</p>
+        <p>마감 시간: {shop.closeTime.toString().substring(0, 5)}</p>
+        <p>대기인 수: {shop.waitingNum}</p>
       </div>
   );
 }
