@@ -147,6 +147,7 @@ function Signup() {
                 value={formData.password}
                 onChange={handleChange}
                 required
+                type = "password"
             />
             {errors.password && <p className="error">{errors.password}</p>}
           </div>
