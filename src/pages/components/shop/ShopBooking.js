@@ -46,7 +46,7 @@ function Bookings(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(bookingStatus)
     const apiEndpoint = bookingStatus === 'reserve' ? 'http://localhost:8080/api/bookings' : `http://localhost:8080/api/bookings/${bookingId}`; // 예약 상태에 따라 API 주소 변경
     const method = bookingStatus === 'reserve' ? 'POST' : 'DELETE'; // 예약 상태에 따라 사용할 메소드 변경
     try {
@@ -85,15 +85,14 @@ function Bookings(props) {
         Authorization: token,
       },
       heartbeatTimeout: 86400000,
+      withCredentials : true
     });
 
     eventSource.onmessage = function (event) {
+      console.log(eventSource)
       const eventData = event.data;
+      console.log("event " + eventData)
       setBookingMessage(eventData);
-    };
-
-    eventSource.onerror = (error) => {
-      console.error("SSE Error:", error);
       eventSource.close();
     };
   };
