@@ -40,3 +40,27 @@ form{
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15); /* 그림자 추가 */
   border-radius: 5px;
 }
+
+.shop-list {
+  display: flex;
+  
+  flex-wrap: nowrap /* 필요한 경우 아이템이 넘칠 경우 다음 줄로 넘김 */
+}
+
+.shop-item {
+   width: calc(100% / 3); /*3개의 아이템이 옆으로 정렬되도록 너비 설정 */
+   background-color: rgb(255, 241, 176); /* 매우 연한 노란색 */
+   border : 1px solid #d1b000;
+   border-radius: 5px;
+  text-decoration: none; /* 링크의 밑줄을 없앰 */
+  margin-right: 10px; /* 아이템 간 간격 설정 */
+}
+
+.shop-link {
+  text-decoration: none; /* 링크의 밑줄을 없앰 */
+  color : black;
+}
+
+.shop-list h4 {
+  text-align: center;
+}
