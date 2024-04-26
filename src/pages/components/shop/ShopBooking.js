@@ -90,6 +90,12 @@ function Bookings(props) {
     eventSource.onmessage = function (event) {
       const eventData = event.data;
       setBookingMessage(eventData);
+
+      if(!eventData.includes("시작")) {
+        setBookingStatus('reserve');
+      }
+
+      alert(eventData);
     };
 
     eventSource.onerror = (error) => {
