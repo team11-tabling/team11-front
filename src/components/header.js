@@ -46,6 +46,7 @@ const StyledLink = styled(Link)`
 
 function Header() {
   const navigate = useNavigate();
+  const isAuthenticated = Boolean(localStorage.getItem('Authorization'));
 
   const handleLogout = () => {
     localStorage.removeItem('Authorization');
@@ -59,7 +60,9 @@ function Header() {
         <NavItems>
           <Button as={StyledLink} to="/search">식당조회</Button>
           <Button as={StyledLink} to="/mypage">예약내역</Button>
-          <Button onClick={handleLogout}>Logout</Button>
+          {isAuthenticated ? 
+          ( <Button onClick={handleLogout}>Logout</Button>) :
+          ( <Button as={StyledLink} to="/">LogIn</Button> )}
         </NavItems>
       </HeaderContainer>
   );
