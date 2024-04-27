@@ -93,6 +93,17 @@ function Bookings(props) {
       const eventData = event.data;
       console.log("event " + eventData)
       setBookingMessage(eventData);
+
+
+      if(!eventData.includes("시작")) {
+        setBookingStatus('reserve');
+      }
+
+      alert(eventData);
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("SSE Error:", error);
       eventSource.close();
     };
   };
