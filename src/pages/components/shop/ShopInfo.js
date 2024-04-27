@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 function ShopInfo(props) {
   const [shop, setShop] = useState(null);
-  const [waitingNum, setWaitingNum] = useState(0);
+  const [waitingNum, setWaitingNum] = useState();
   const { shopId } = props;
   const token = localStorage.getItem('Authorization');
 
