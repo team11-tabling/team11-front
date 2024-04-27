@@ -46,7 +46,9 @@ function Bookings(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     console.log(bookingStatus)
+
     const apiEndpoint = bookingStatus === 'reserve' ? 'https://load.p-hako.com/api/bookings' : `https://load.p-hako.com/api/bookings/${bookingId}`; // 예약 상태에 따라 API 주소 변경
     const method = bookingStatus === 'reserve' ? 'POST' : 'DELETE'; // 예약 상태에 따라 사용할 메소드 변경
     try {
