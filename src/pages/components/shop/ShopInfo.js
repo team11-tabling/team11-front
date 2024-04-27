@@ -3,7 +3,7 @@ import {EventSourcePolyfill} from "event-source-polyfill";
 
 function ShopInfo(props) {
   const [shop, setShop] = useState(null);
-  const [waitingNum, setWaitingNum] = useState();
+  const [waitingNum, setWaitingNum] = useState('');
   const { shopId } = props;
   const token = localStorage.getItem('Authorization');
 
@@ -25,12 +25,22 @@ function ShopInfo(props) {
       console.error('Error fetching data: ', error);
     });
 
-    // SSE 연결 설정
-    const eventSource = new EventSource(`http://localhost:8080/api/shops/waiting-info/${shopId}`);
+    //SSE 연결 설정
+    const eventSource = new EventSourcePolyfill(`http://localhost:8080/api/shops/waiting-info/${shopId}`, {
+      headers: {
+        Authorization: token,
+      },
+      heartbeatTimeout: 86400000,
+      withCredentials : true
+    });
     eventSource.onmessage = event => {
       console.log(eventSource)
       console.log("대기인 수 " + event.data)
       setWaitingNum(event.data);  // 대기 인원 수 업데이트
+    };
+    eventSource.onerror = function(error) {
+      console.error('EventSource failed:', error);
+      eventSource.close();
     };
 
     return () => eventSource.close();  // 컴포넌트 언마운트 시 SSE 연결 해제
