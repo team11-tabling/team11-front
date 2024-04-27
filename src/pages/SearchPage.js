@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import './css/SearchPage.css';
 import { useNavigate  } from 'react-router-dom';
+import PopularShop from './components/shop/PopularShop';
 
 function SearchPage() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const token = localStorage.getItem('Authorization');
   const navigate = useNavigate();
+  const [popularShopVisible, setPopularShopVisible] = useState(true); // PopularShop 컴포넌트 표시 여부  const [popularShopVisible, setPopularShopVisible] = useState(true); // PopularShop 컴포넌트 표시 여부
+
   const handleSearch = (e) => {
     e.preventDefault();
-
 
     fetch(`http://localhost:8080/api/shops?search=${query}`,
         {
@@ -22,6 +24,7 @@ function SearchPage() {
     .then(response => response.json())
     .then(data => {
       setResults(data.data.documents);
+      setPopularShopVisible(false); // PopularShop 숨기기
       console.log('Fetching data with query:', data.data.documents);
     })
     .catch(error => console.error('Error:', error));
@@ -72,9 +75,11 @@ function SearchPage() {
               </div>
           ))}
         </div>
+        <div>
+        {popularShopVisible && <PopularShop />}
+        </div>
       </div>
   );
 }
 
 export default SearchPage;
-
