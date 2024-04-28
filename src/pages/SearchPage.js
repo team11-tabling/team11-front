@@ -13,6 +13,7 @@ function SearchPage() {
   const handleSearch = (e) => {
     e.preventDefault();
 
+
     fetch(`https://load.p-hako.com/api/shops?search=${query}`,
         {
           method: 'GET', // 또는 'POST', 'PUT', 'DELETE' 등

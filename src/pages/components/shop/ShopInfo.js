@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {EventSourcePolyfill} from "event-source-polyfill";
+//import {EventSourcePolyfill} from "event-source-polyfill";
 
 function ShopInfo(props) {
   const [shop, setShop] = useState(null);
+
   const [waitingNum, setWaitingNum] = useState('');
+
   const { shopId } = props;
   const token = localStorage.getItem('Authorization');
 
@@ -19,11 +21,14 @@ function ShopInfo(props) {
     .then(response => response.json())
     .then(data => {
       const shopData = data.data || null; // 데이터가 없을 경우를 대비하여 null로 설정
+      const popularShopData = data.data || [];
+      setWaitingNum(popularShopData);
       setShop(shopData);
     })
     .catch(error => {
       console.error('Error fetching data: ', error);
     });
+
 
     //SSE 연결 설정
     const eventSource = new EventSourcePolyfill(`https://load.p-hako.com/api/shops/waiting-info/${shopId}`, {
@@ -33,10 +38,10 @@ function ShopInfo(props) {
       heartbeatTimeout: 86400000,
       withCredentials : true
     });
+
     eventSource.onmessage = event => {
       console.log(eventSource)
       console.log("대기인 수 " + event.data)
-      setWaitingNum(event.data);  // 대기 인원 수 업데이트
     };
     eventSource.onerror = function(error) {
       console.error('EventSource failed:', error);
@@ -60,7 +65,7 @@ function ShopInfo(props) {
         <p>전화번호: {shop.phone}</p>
         <p>오픈 시간: {shop.openTime.toString().substring(0, 5)}</p>
         <p>마감 시간: {shop.closeTime.toString().substring(0, 5)}</p>
-        <p>대기인 수: {waitingNum}</p>
+        <p>대기인 수: {waitingNum.waitingNum}</p>
       </div>
   );
 }
