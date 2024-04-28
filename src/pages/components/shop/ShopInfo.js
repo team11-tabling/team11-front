@@ -14,7 +14,7 @@ function ShopInfo(props) {
         Authorization: `${token}`
       }
     };
-    fetch(`http://localhost:8080/api/shops/${shopId}`, requestOptions)
+    fetch(`https://load.p-hako.com/api/shops/${shopId}`, requestOptions)
     .then(response => response.json())
     .then(data => {
       const shopData = data.data || null; // 데이터가 없을 경우를 대비하여 null로 설정
@@ -25,7 +25,7 @@ function ShopInfo(props) {
     });
 
     //SSE 연결 설정
-    const eventSource = new EventSourcePolyfill(`http://localhost:8080/api/shops/waiting-info/${shopId}`, {
+    const eventSource = new EventSourcePolyfill(`https://load.p-hako.com/api/shops/waiting-info/${shopId}`, {
       headers: {
         Authorization: token,
       },
