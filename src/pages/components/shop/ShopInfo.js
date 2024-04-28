@@ -3,7 +3,7 @@ import {EventSourcePolyfill} from "event-source-polyfill";
 
 function ShopInfo(props) {
   const [shop, setShop] = useState(null);
-  const [waitingNum, setWaitingNum] = useState('');
+  const [waitingNum, setWaitingNum] = useState('0');
   const { shopId } = props;
   const token = localStorage.getItem('Authorization');
 
