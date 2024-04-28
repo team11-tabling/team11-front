@@ -51,3 +51,4 @@ function ShopInfo(props) {
       </div>
   );
 }
+export default ShopInfo;
