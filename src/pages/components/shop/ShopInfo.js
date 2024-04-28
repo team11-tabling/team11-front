@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-//import {EventSourcePolyfill} from "event-source-polyfill";
+import {EventSourcePolyfill} from "event-source-polyfill";
 
 function ShopInfo(props) {
   const [shop, setShop] = useState(null);
