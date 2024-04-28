@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Bookings(props) {
   const [reservedDatetime, setReservedDatetime] = useState(new Date().toISOString());
@@ -101,7 +103,8 @@ function Bookings(props) {
         setBookingStatus('reserve');
       }
 
-      alert(eventData);
+      // alert(eventData);
+      toast(eventData);
     };
 
     eventSource.onerror = (error) => {
@@ -123,7 +126,7 @@ function Bookings(props) {
             />
           </label>
           <button className="btn" type="submit" disabled={!reservedParty}>
-            {bookingStatus === 'reserve' ? '줄서기' : '취소하기'}
+            {bookingStatus === 'reserve' ? '웨이팅 등록하기' : '웨이팅 취소하기'}
           </button>
         </form>
         {/* 예약 메시지를 표시하는 부분 추가 */}
@@ -132,6 +135,7 @@ function Bookings(props) {
               <p>{bookingMessage}</p>
             </div>
         )}
+        <ToastContainer position="top-center" autoClose={5000} />
       </div>
   );
 }

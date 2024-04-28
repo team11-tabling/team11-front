@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 
 function ShopInfo(props) {
   const [shop, setShop] = useState(null);
-  const [waitingNum, setWaitingNum] = useState([]);
+
+  const [waitingNum, setWaitingNum] = useState('');
+
   const { shopId } = props;
   const token = localStorage.getItem('Authorization');
 
@@ -27,11 +29,23 @@ function ShopInfo(props) {
       console.error('Error fetching data: ', error);
     });
 
-    // SSE 연결 설정
-    const eventSource = new EventSource(`https://load.p-hako.com/api/shops/waiting-info/${shopId}`);
+
+    //SSE 연결 설정
+    const eventSource = new EventSourcePolyfill(`https://load.p-hako.com/api/shops/waiting-info/${shopId}`, {
+      headers: {
+        Authorization: token,
+      },
+      heartbeatTimeout: 86400000,
+      withCredentials : true
+    });
+
     eventSource.onmessage = event => {
       console.log(eventSource)
       console.log("대기인 수 " + event.data)
+    };
+    eventSource.onerror = function(error) {
+      console.error('EventSource failed:', error);
+      eventSource.close();
     };
 
     return () => eventSource.close();  // 컴포넌트 언마운트 시 SSE 연결 해제
