@@ -14,8 +14,7 @@ function ShopInfo(props) {
         Authorization: `${token}`
       }
     };
-
-    fetch(`http://localhost:8080/api/shops/${shopId}`, requestOptions)
+    fetch(`https://load.p-hako.com/api/shops/${shopId}`, requestOptions)
     .then(response => response.json())
     .then(data => {
       const shopData = data.data || null; // 데이터가 없을 경우를 대비하여 null로 설정
@@ -27,9 +26,10 @@ function ShopInfo(props) {
     });
 
     //SSE 연결 설정
+
     // useEffect 또는 적절한 컴포넌트 생명주기 내부에서 호출되어야 함
     const initializeEventSource = () => {
-      let eventSource = new EventSourcePolyfill(`http://localhost:8080/api/shops/waiting-info/${shopId}`, {
+      let eventSource = new EventSourcePolyfill(`https://load.p-hako.com/api/shops/waiting-info/${shopId}`, {
         headers: {
           Authorization: token,
         },
@@ -55,6 +55,7 @@ function ShopInfo(props) {
         eventSource.close();
       };
 
+
     };
 
 // 이 함수를 초기화 및 재연결 로직으로 사용
@@ -62,12 +63,9 @@ function ShopInfo(props) {
 
 
   }, [shopId, token]); // shopId와 token을 의존성 배열에 추가하여, 해당 값이 변경될 때마다 useEffect가 실행되도록 함
-
-
   if (!shop) {
     return <div>Loading...</div>;
   }
-
   return (
       <div className="shop-info">
         <h1>{shop.placeName}</h1>
@@ -80,5 +78,4 @@ function ShopInfo(props) {
       </div>
   );
 }
-
 export default ShopInfo;

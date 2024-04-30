@@ -12,7 +12,7 @@ function ReviewForm({ shopId, onReviewSubmit }) {
   const handleReviewSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/reviews', {
+      const response = await fetch('https://load.p-hako.com/api/reviews', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

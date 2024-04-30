@@ -13,7 +13,7 @@ const PopularShop = () => {
       }
     };
 
-    fetch(`http://localhost:8080/api/shops/popular`, requestOptions)
+    fetch(`https://load.p-hako.com/api/shops/popular`, requestOptions)
     .then(response => response.json())
     .then(data => {
       const popularShopData = data.data || [];
