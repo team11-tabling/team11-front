@@ -135,7 +135,7 @@ function Bookings(props) {
               <p>{bookingMessage}</p>
             </div>
         )}
-        <ToastContainer position="top-center" autoClose={5000} />
+        <ToastContainer position="top-center" autoClose={1000} />
       </div>
   );
 }
