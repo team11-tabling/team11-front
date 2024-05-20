@@ -1,71 +1,83 @@
-# Getting Started with Create React App
+### 📄 개요
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**********************
 
-## Available Scripts
+<a name="readme-top"></a>
+<div align="center">
+<h1 align="center">tabling</h1>
+    <p align="center">
+        식당 대기열 예약/정보공유 통합 플랫폼
+    </p>
+    <p align="center">
+        2024.03.26 ~ 2024.04.30
+    </p>
+</div>
 
-In the project directory, you can run:
+### 개발환경
 
-### `npm start`
+*********************
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- <img src="https://img.shields.io/badge/Framework-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"><img src="https://img.shields.io/badge/3.2.3-515151?style=for-the-badge">
+- <img src="https://img.shields.io/badge/Security-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"/>
+- <img src="https://img.shields.io/badge/Build-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white"><img src="https://img.shields.io/badge/8.5-515151?style=for-the-badge">
+- <img src="https://img.shields.io/badge/Language-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/java-%23ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"><img src="https://img.shields.io/badge/17-515151?style=for-the-badge">
+- <img src="https://img.shields.io/badge/DataBase-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/8.3-515151?style=for-the-badge">
+- <img src="https://img.shields.io/badge/React-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/18.2.0-515151?style=for-the-badge">
+- <img src="https://img.shields.io/badge/Node.js-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"><img src="https://img.shields.io/badge/16.20.2-515151?style=for-the-badge">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+### 서비스 아키텍쳐
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+*********************
+![image](https://github.com/team11-tabling/Team11/assets/61917664/2aba53fe-a951-4940-a3af-c7d715f54dd9)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### ⚙ 기능구현
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+*********************
 
-### `npm run eject`
+- [x]  **회원가입/로그인 기능**
+- [x]  **식당 대기열 예약/취소**
+- [x]  **리뷰 CRUD 기능**
+- [x]  **예약/취소/입장알림 기능**
+- [x]  **즐겨찾기 기능**
+- [x]  **이용내역 조회기능**
+- [x]  **배치 스케줄링**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+      
+### 👩🏼‍🤝‍👩🏼 멤버 구성
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**************
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/Hako99"><img src="https://avatars.githubusercontent.com/u/154326391?s=64&v=4" width="100px;" alt="x"/><br /><sub><b> 강민규 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/yejin0901"><img src="https://avatars.githubusercontent.com/u/61917664?s=64&v=4" width="100px;" alt="x"/><br /><sub><b> 김예진 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/newbe01"><img src="https://avatars.githubusercontent.com/u/113904619?s=64&v=4" width="100px;" alt="x"/><br /><sub><b> 추정우 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/beunchoi"><img src="https://avatars.githubusercontent.com/u/154890316?s=96&v=4" width="100px;" alt="x"/><br /><sub><b> 최병은 </b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 📜 API 명세서
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+*********************
+https://www.notion.so/teamsparta/95d714c807b54d14ba240434fff454d8
 
-## Learn More
+### 📐 와이어프레임
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+****************
+<div align="center">
+    <img src="https://github.com/team11-tabling/Team11/assets/61917664/3634bfad-9641-4de3-9932-e6bc929c5ed4"  width="50%" alt="">
+    <img src="https://github.com/team11-tabling/Team11/assets/61917664/051fdaa4-b0d1-4f56-aad0-7d099710ff24"  width="50%" alt="">
+    <img src="https://github.com/team11-tabling/Team11/assets/61917664/7a95e458-2af0-4d41-90f6-25f45e7666f3"  width="35%">
+</div>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 🗂️ ERD DIAGRAM
 
-### Code Splitting
+*****************
+<div align="center">
+    <img src="https://github.com/team11-tabling/Team11/assets/61917664/f934498e-e469-40e6-b654-cdd14960911c"  width="80%">
+</div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# team11-front
